@@ -56,7 +56,7 @@ exports.findAllPost = findAllPost;
 
 var createPost = /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-    var newPost, filename, postSaved;
+    var newPost, postSaved;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -67,36 +67,31 @@ var createPost = /*#__PURE__*/function () {
               description: req.body.description,
               socialLink: req.body.socialLink,
               usuario: req.userId,
-              category: req.body.category
+              category: req.body.category,
+              imgUrl: req.body.imgUrl
             });
-
-            if (req.file) {
-              filename = req.file.filename;
-              newPost.setImgUrl(filename);
-            }
-
-            _context2.next = 6;
+            _context2.next = 5;
             return newPost.save();
 
-          case 6:
+          case 5:
             postSaved = _context2.sent;
             res.json(postSaved);
-            _context2.next = 13;
+            _context2.next = 12;
             break;
 
-          case 10:
-            _context2.prev = 10;
+          case 9:
+            _context2.prev = 9;
             _context2.t0 = _context2["catch"](0);
             res.status(500).json({
               message: _context2.t0.message || "algo ocurrio mal al Crear una tarea."
             });
 
-          case 13:
+          case 12:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 10]]);
+    }, _callee2, null, [[0, 9]]);
   }));
 
   return function createPost(_x3, _x4) {

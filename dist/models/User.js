@@ -33,7 +33,7 @@ userSchema.methods.setImgUrl = function setImgUrl(filename) {
 };
 
 userSchema.methods.isNotImg = function isNotImg() {
-  this.imgProfile = "".concat(_config["default"].host, ":").concat(_config["default"].port, "/public/", 'profileImg.png');
+  this.imgProfile = "https://firebasestorage.googleapis.com/v0/b/lotteryapp-7d8e0.appspot.com/o/Usuarios%2FprofileImg.png?alt=media&token=e28f1155-ea1a-406d-a628-677f65ac0232";
 };
 
 var _default = (0, _mongoose.model)('User', userSchema);

@@ -21,12 +21,8 @@ export const createPost = async (req,res) => {
             socialLink: req.body.socialLink,
             usuario: req.userId,
             category: req.body.category,
+            imgUrl: req.body.imgUrl
         });
-
-        if(req.file){
-            const{filename} = req.file
-            newPost.setImgUrl(filename)
-        }
 
         const postSaved = await newPost.save();
         res.json(postSaved)
