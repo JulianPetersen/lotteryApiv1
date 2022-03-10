@@ -30,7 +30,7 @@ export const createPost = async (req,res) => {
     }catch(error){
         res.status(500).json({
             message: error.message || "algo ocurrio mal al Crear una tarea."
-        })
+        });
     }
 
 }
