@@ -17,7 +17,7 @@ app.use(express.urlencoded({extended: false}));
 
 //static files
 app.use('/public', express.static(`${__dirname}/storage/imgs`))
-console.log(`${__dirname}/storage/imgs`) 
+console.log(`${__dirname}/storage/imgs`)
 
 
 
