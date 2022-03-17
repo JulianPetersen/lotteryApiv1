@@ -35,8 +35,6 @@ export const createPost = async (req,res) => {
 
 }
 
-
-
 export const findOnePost = async (req,res) => {
     try{
         const post = await Post.findById(req.params.id);
@@ -75,6 +73,18 @@ export const updatePost = async (req,res) => {
     }
 }
 
+export const findPostByUser = async (req,res) => {
+    try{
+        console.log(req.params.id)
+        const post = await Post.find({usuario: req.params.id})
+        .populate('usuario');
+        res.json(post);
+    }catch(error){
+        res.status(500).json({
+            message:error.message || "algo ocurrio mal al intentar conseguir los post de un usuario"
+        })
+    }
+}
 
 export const findPosByCategory = async (req,res) => {
     try{

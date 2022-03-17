@@ -8,7 +8,10 @@ router.post('/', upload.single('image'), authCrtl.singUp, )
 
 router.post('/singin', authCrtl.singIn)
 
-router.put('/:id', upload.single('image'), authCrtl.updateUser )
+router.put('/:id', authCrtl.updateUser )
+
+router.get('/:id', authCrtl.finduserById )
+
 
 
 export default router;

@@ -19,6 +19,8 @@ router.put('/:id', postCtrl.updatePost);
 
 router.get('/categoryFiltrer/:categoryId', postCtrl.findPosByCategory);
 
+router.get('/userfiltrer/:id', postCtrl.findPostByUser);
+
 
 
 export default router;

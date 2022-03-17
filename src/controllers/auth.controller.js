@@ -25,20 +25,17 @@ export const singIn = async  (req,res) => {
     if(user.password !== password) return res.status(401).send('password incorrecto');
 
     const token = jwt.sign({_id: user._id}, 'secretKey')
-    res.status(200).json({token});
+    res.status(200).json({
+                usuario:{
+                    id: user._id
+                },
+                token});
 }
 
 //terminar el updater
 export const updateUser = async (req,res) => {
     try{
-        console.log(req.file.filename);
-      const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-          email: req.body.email,
-          password: req.body.password,
-          imgProfile: `${'http://localhost'}:${'3000'}/public/${req.file.filename}`,
-          username: req.body.username
-          
-      });
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body);
       res.json(updatedUser);
     }catch(error){
       res.status(500).json({
@@ -46,3 +43,16 @@ export const updateUser = async (req,res) => {
       })
     }
   }
+
+
+  export const finduserById = async (req,res) => {
+    try{
+        const user = await User.findById(req.params.id);
+        res.json(user); 
+
+    }catch(error){
+        res.status(500).json({
+            message: error.message || "algo ocurrio mal al Buscar un posteo."
+        })
+    }
+}
