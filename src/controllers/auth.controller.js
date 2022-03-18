@@ -4,7 +4,11 @@ import  jwt  from 'jsonwebtoken';
 
 export const singUp = async (req,res) => {
     const {email, password, username} = req.body;
-    const newUser = new User ({email,password, username});
+    const user = await User.findOne({email})
+    if(user){
+        res.status(500).json({message: 'El correo electronico ya existe'})
+    }else{
+        const newUser = new User ({email,password, username});
     if(req.file){
         const{filename} = req.file
         newUser.setImgUrl(filename)
@@ -16,6 +20,8 @@ export const singUp = async (req,res) => {
     
     const token = jwt.sign({_id: newUser._id }, 'secretKey')
     res.status(200).json({token})
+    }
+    
 }
 
 export const singIn = async  (req,res) => {

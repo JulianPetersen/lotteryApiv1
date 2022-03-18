@@ -23,7 +23,7 @@ console.log(`${__dirname}/storage/imgs`)
 
 //routes
 app.get('/', (req,res) => {
-    res.json({message: 'welcome to my application'});
+    res.json({message: 'Bienvenidos a sorteando Api'});
 })
 
 app.use('/api/auth', AuthRoutes);
