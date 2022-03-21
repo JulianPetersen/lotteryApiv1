@@ -20,9 +20,13 @@ export const createPost = async (req,res) => {
             description: req.body.description,
             socialLink: req.body.socialLink,
             usuario: req.userId,
+            ciudad: req.body.ciudad,
             category: req.body.category,
             imgUrl: req.body.imgUrl
         });
+        if(newPost.ciudad === ""){
+            newPost.ciudad = "Valido para todas las ciudades"
+        }
 
         const postSaved = await newPost.save();
         res.json(postSaved)
