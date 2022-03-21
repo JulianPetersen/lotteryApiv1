@@ -25,7 +25,7 @@ export const createPost = async (req,res) => {
             imgUrl: req.body.imgUrl
         });
         if(newPost.ciudad === ""){
-            newPost.ciudad = "Valido para todas las ciudades"
+            newPost.ciudad = "cualquier localización"
         }
 
         const postSaved = await newPost.save();
