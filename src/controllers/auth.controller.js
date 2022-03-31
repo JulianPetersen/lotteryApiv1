@@ -5,9 +5,14 @@ import  jwt  from 'jsonwebtoken';
 export const singUp = async (req,res) => {
     const {email, password, username} = req.body;
     const user = await User.findOne({email})
+    const userName = await User.findOne({username})
     if(user){
-        res.status(500).json({message: 'El correo electronico ya existe'})
-    }else{
+        res.status(500).json({message: 'correo existente'})
+    }
+    if(userName){
+        res.status(500).json({message: 'usuario existente'})
+    }
+    else{
         const newUser = new User ({email,password, username});
     if(req.file){
         const{filename} = req.file
