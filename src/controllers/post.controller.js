@@ -80,7 +80,7 @@ export const updatePost = async (req,res) => {
 export const findPostByUser = async (req,res) => {
     try{
         console.log(req.params.id)
-        const post = await Post.find({usuario: req.params.id})
+        const post = await Post.find({usuario: req.params.id}).sort({createdAt: 'desc'})
         .populate('usuario');
         res.json(post);
     }catch(error){
@@ -92,7 +92,7 @@ export const findPostByUser = async (req,res) => {
 
 export const findPosByCategory = async (req,res) => {
     try{
-        const post = await Post.find({category: req.params.categoryId})
+        const post = await Post.find({category: req.params.categoryId}).sort({createdAt: 'desc'})
         .populate('category')
         .populate('usuario')
         res.json(post); 

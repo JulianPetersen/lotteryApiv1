@@ -2,6 +2,7 @@ import express from "express";
 import AuthRoutes from './routes/auth.routes';
 import PostRoutes from './routes/post.routes';
 import CategoryRoutes from './routes/category.routes'
+import instagramcomment from './routes/igcomment.routes'
 import morgan from "morgan";
 import cors from 'cors';
 
@@ -29,6 +30,7 @@ app.get('/', (req,res) => {
 app.use('/api/auth', AuthRoutes);
 app.use('/api/post', PostRoutes);
 app.use('/api/category', CategoryRoutes);
+app.use('/api/instagramcomment', instagramcomment)
 
 
 

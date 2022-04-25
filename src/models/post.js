@@ -15,7 +15,7 @@ const postSchema =  new Schema({
      
     },
     usuario:{
-        type: Schema.Types.ObjectId, ref: 'User'
+        type: Schema.Types.ObjectId, ref: 'User',
     },
     ciudad:{
         type:String,
