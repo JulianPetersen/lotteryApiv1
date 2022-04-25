@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateUser = exports.singUp = exports.singIn = void 0;
+exports.updateUser = exports.singUp = exports.singIn = exports.finduserById = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -17,13 +17,46 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var singUp = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, email, password, username, newUser, filename, token;
+    var _req$body, email, password, username, user, userName, newUser, filename, token;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, email = _req$body.email, password = _req$body.password, username = _req$body.username;
+            _context.next = 3;
+            return _User["default"].findOne({
+              email: email
+            });
+
+          case 3:
+            user = _context.sent;
+            _context.next = 6;
+            return _User["default"].findOne({
+              username: username
+            });
+
+          case 6:
+            userName = _context.sent;
+
+            if (user) {
+              res.status(500).json({
+                message: 'correo existente'
+              });
+            }
+
+            if (!userName) {
+              _context.next = 12;
+              break;
+            }
+
+            res.status(500).json({
+              message: 'usuario existente'
+            });
+            _context.next = 19;
+            break;
+
+          case 12:
             newUser = new _User["default"]({
               email: email,
               password: password,
@@ -39,10 +72,10 @@ var singUp = /*#__PURE__*/function () {
               newUser.isNotImg();
             }
 
-            _context.next = 6;
+            _context.next = 17;
             return newUser.save();
 
-          case 6:
+          case 17:
             token = _jsonwebtoken["default"].sign({
               _id: newUser._id
             }, 'secretKey');
@@ -50,7 +83,7 @@ var singUp = /*#__PURE__*/function () {
               token: token
             });
 
-          case 8:
+          case 19:
           case "end":
             return _context.stop();
         }
@@ -102,6 +135,9 @@ var singIn = /*#__PURE__*/function () {
               _id: user._id
             }, 'secretKey');
             res.status(200).json({
+              usuario: {
+                id: user._id
+              },
               token: token
             });
 
@@ -129,34 +165,28 @@ var updateUser = /*#__PURE__*/function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.prev = 0;
-            console.log(req.file.filename);
-            _context3.next = 4;
-            return _User["default"].findByIdAndUpdate(req.params.id, {
-              email: req.body.email,
-              password: req.body.password,
-              imgProfile: 'http://localhost'.concat(":", '3000', "/public/", req.file.filename),
-              username: req.body.username
-            });
+            _context3.next = 3;
+            return _User["default"].findByIdAndUpdate(req.params.id, req.body);
 
-          case 4:
+          case 3:
             updatedUser = _context3.sent;
             res.json(updatedUser);
-            _context3.next = 11;
+            _context3.next = 10;
             break;
 
-          case 8:
-            _context3.prev = 8;
+          case 7:
+            _context3.prev = 7;
             _context3.t0 = _context3["catch"](0);
             res.status(500).json({
               message: _context3.t0.message || "algo ocurrio mal al Actualizar una tarea."
             });
 
-          case 11:
+          case 10:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[0, 8]]);
+    }, _callee3, null, [[0, 7]]);
   }));
 
   return function updateUser(_x5, _x6) {
@@ -165,3 +195,42 @@ var updateUser = /*#__PURE__*/function () {
 }();
 
 exports.updateUser = updateUser;
+
+var finduserById = /*#__PURE__*/function () {
+  var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res) {
+    var user;
+    return _regenerator["default"].wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return _User["default"].findById(req.params.id);
+
+          case 3:
+            user = _context4.sent;
+            res.json(user);
+            _context4.next = 10;
+            break;
+
+          case 7:
+            _context4.prev = 7;
+            _context4.t0 = _context4["catch"](0);
+            res.status(500).json({
+              message: _context4.t0.message || "algo ocurrio mal al Buscar un posteo."
+            });
+
+          case 10:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4, null, [[0, 7]]);
+  }));
+
+  return function finduserById(_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+exports.finduserById = finduserById;

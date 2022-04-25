@@ -26,6 +26,9 @@ var postSchema = new _mongoose.Schema({
     type: _mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  ciudad: {
+    type: String
+  },
   category: {
     type: _mongoose.Schema.Types.ObjectId,
     ref: 'Category'

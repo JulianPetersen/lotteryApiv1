@@ -15,6 +15,8 @@ var _post = _interopRequireDefault(require("./routes/post.routes"));
 
 var _category = _interopRequireDefault(require("./routes/category.routes"));
 
+var _igcomment = _interopRequireDefault(require("./routes/igcomment.routes"));
+
 var _morgan = _interopRequireDefault(require("morgan"));
 
 var _cors = _interopRequireDefault(require("cors"));
@@ -35,11 +37,12 @@ console.log("".concat(__dirname, "/storage/imgs")); //routes
 
 app.get('/', function (req, res) {
   res.json({
-    message: 'welcome to my application'
+    message: 'Bienvenidos a sorteando Apiv2'
   });
 });
 app.use('/api/auth', _auth["default"]);
 app.use('/api/post', _post["default"]);
 app.use('/api/category', _category["default"]);
+app.use('/api/instagramcomment', _igcomment["default"]);
 var _default = app;
 exports["default"] = _default;

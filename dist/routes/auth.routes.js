@@ -22,6 +22,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 var router = (0, _express.Router)();
 router.post('/', _multer["default"].single('image'), authCrtl.singUp);
 router.post('/singin', authCrtl.singIn);
-router.put('/:id', _multer["default"].single('image'), authCrtl.updateUser);
+router.put('/:id', authCrtl.updateUser);
+router.get('/:id', authCrtl.finduserById);
 var _default = router;
 exports["default"] = _default;

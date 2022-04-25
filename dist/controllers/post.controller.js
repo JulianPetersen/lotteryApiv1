@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updatePost = exports.findPosByCategory = exports.findOnePost = exports.findAllPost = exports.deletePost = exports.createPost = void 0;
+exports.updatePost = exports.findPostByUser = exports.findPosByCategory = exports.findOnePost = exports.findAllPost = exports.deletePost = exports.createPost = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -67,31 +67,37 @@ var createPost = /*#__PURE__*/function () {
               description: req.body.description,
               socialLink: req.body.socialLink,
               usuario: req.userId,
+              ciudad: req.body.ciudad,
               category: req.body.category,
               imgUrl: req.body.imgUrl
             });
-            _context2.next = 5;
+
+            if (newPost.ciudad === "") {
+              newPost.ciudad = "cualquier localización";
+            }
+
+            _context2.next = 6;
             return newPost.save();
 
-          case 5:
+          case 6:
             postSaved = _context2.sent;
             res.json(postSaved);
-            _context2.next = 12;
+            _context2.next = 13;
             break;
 
-          case 9:
-            _context2.prev = 9;
+          case 10:
+            _context2.prev = 10;
             _context2.t0 = _context2["catch"](0);
             res.status(500).json({
               message: _context2.t0.message || "algo ocurrio mal al Crear una tarea."
             });
 
-          case 12:
+          case 13:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 9]]);
+    }, _callee2, null, [[0, 10]]);
   }));
 
   return function createPost(_x3, _x4) {
@@ -219,7 +225,7 @@ var updatePost = /*#__PURE__*/function () {
 
 exports.updatePost = updatePost;
 
-var findPosByCategory = /*#__PURE__*/function () {
+var findPostByUser = /*#__PURE__*/function () {
   var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res) {
     var post;
     return _regenerator["default"].wrap(function _callee6$(_context6) {
@@ -227,34 +233,80 @@ var findPosByCategory = /*#__PURE__*/function () {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.prev = 0;
-            _context6.next = 3;
+            console.log(req.params.id);
+            _context6.next = 4;
             return _post["default"].find({
-              category: req.params.categoryId
-            }).populate('category').populate('usuario');
+              usuario: req.params.id
+            }).sort({
+              createdAt: 'desc'
+            }).populate('usuario');
 
-          case 3:
+          case 4:
             post = _context6.sent;
             res.json(post);
-            _context6.next = 10;
+            _context6.next = 11;
             break;
 
-          case 7:
-            _context6.prev = 7;
+          case 8:
+            _context6.prev = 8;
             _context6.t0 = _context6["catch"](0);
             res.status(500).json({
-              message: _context6.t0.message || "algo ocurrio mal al Buscar un posteo."
+              message: _context6.t0.message || "algo ocurrio mal al intentar conseguir los post de un usuario"
             });
 
-          case 10:
+          case 11:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee6, null, [[0, 7]]);
+    }, _callee6, null, [[0, 8]]);
   }));
 
-  return function findPosByCategory(_x11, _x12) {
+  return function findPostByUser(_x11, _x12) {
     return _ref6.apply(this, arguments);
+  };
+}();
+
+exports.findPostByUser = findPostByUser;
+
+var findPosByCategory = /*#__PURE__*/function () {
+  var _ref7 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(req, res) {
+    var post;
+    return _regenerator["default"].wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.prev = 0;
+            _context7.next = 3;
+            return _post["default"].find({
+              category: req.params.categoryId
+            }).sort({
+              createdAt: 'desc'
+            }).populate('category').populate('usuario');
+
+          case 3:
+            post = _context7.sent;
+            res.json(post);
+            _context7.next = 10;
+            break;
+
+          case 7:
+            _context7.prev = 7;
+            _context7.t0 = _context7["catch"](0);
+            res.status(500).json({
+              message: _context7.t0.message || "algo ocurrio mal al Buscar un posteo."
+            });
+
+          case 10:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7, null, [[0, 7]]);
+  }));
+
+  return function findPosByCategory(_x13, _x14) {
+    return _ref7.apply(this, arguments);
   };
 }();
 

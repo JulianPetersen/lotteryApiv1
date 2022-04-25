@@ -28,5 +28,6 @@ router.get('/:id', postCtrl.findOnePost);
 router["delete"]('/:id', verify.verifyToken, postCtrl.deletePost);
 router.put('/:id', postCtrl.updatePost);
 router.get('/categoryFiltrer/:categoryId', postCtrl.findPosByCategory);
+router.get('/userfiltrer/:id', postCtrl.findPostByUser);
 var _default = router;
 exports["default"] = _default;
